@@ -15,44 +15,51 @@ const uint32_t CAN_ID[] = {CAN_THROTTLE_ID, CAN_BRAKE_ID, CAN_STEERING_ID};
 // initialize the driver to recieve three messages from teh bus with the ids above from the Message Buffer numbers above
 void CANAPIInit (uint32_t b) {
 
-    int size;
-
-    size = (sizeof(MB))/(sizeof(MB[0]));
-
     CANDriverInit(b);
 
-    // Set the filter to select the defined IDs above
-    int i;
-    for(i=0;i<size;i++){
-        CANDriverMsgRxFilter(CAN_ID[i], MB[i]);
-    }
+    // This is the place to add more ids for the CAN module to listen to
+    CANDriverMsgRxFilter(CAN_THROTTLE_ID, RX_MB_THROTTLE);
+    //CANDriverMsgRxFilter(CAN_THROTTLE_ID, RX_MB_THROTTLE);
+    //CANDriverMsgRxFilter(CAN_THROTTLE_ID, RX_MB_THROTTLE);
 
     CANDriverInterruptEnable(RX_MB_MASK);
 
 }
 
 
-void CANAPIMsgReceiveThrottle(uint32_t * data_ptr){
+void CANAPIMsgReceiveThrottle(sensorThrottle_t * data_ptr){
 
     flexcan_frame_t throttleFrame;
-    throttleFrame = CANDriverMsgReceive(MB[0]);
+    throttleFrame = CANDriverMsgReceive(RX_MB_THROTTLE);
 
     rxCompleteThrottle = false;
 
-    data_ptr = &throttleFrame.dataByte0;
-    //PRINTF("\n%d", throttleFrame.dataByte0);
+    // CONVERT TO LITTLE ENDIAN
+    throttleFrame.dataWord0 = BIG_TO_LIT_ENDIAN(throttleFrame.dataWord0);
+    throttleFrame.dataWord1 = BIG_TO_LIT_ENDIAN(throttleFrame.dataWord1);
+
+    // Extract information from frame
+    data_ptr->sensorADCThrottle = throttleFrame.dataWord0;
+    data_ptr->sensorQEIThrottle = throttleFrame.dataWord1;
 
 }
 
 
-void CANAPIMsgReceiveBrake(uint32_t * data_ptr){
+void CANAPIMsgReceiveBrake(sensorBrake_t * data_ptr){
 
     flexcan_frame_t brakeFrame;
     brakeFrame = CANDriverMsgReceive(MB[1]);
 
     rxCompleteBrake = false;
 
-    data_ptr = &brakeFrame.dataWord0;
+    // CONVERT TO LITTLE ENDIAN
+    brakeFrame.dataWord0 = BIG_TO_LIT_ENDIAN(brakeFrame.dataWord0);
+    brakeFrame.dataWord1 = BIG_TO_LIT_ENDIAN(brakeFrame.dataWord1);
+
+    // Extract information from frame
+    data_ptr->sensorADCBrake = brakeFrame.dataWord0;
+    data_ptr->sensorQEIBrake = brakeFrame.dataWord1;
+
     //PRINTF("\n%d", brakeFrame.dataByte0);
 
 }
@@ -64,6 +71,8 @@ void CANAPIMsgReceiveSteering(uint32_t * data_ptr){
     steeringFrame = CANDriverMsgReceive(MB[2]);
 
     rxCompleteSteering = false;
+
+    steeringFrame.dataWord0 = BIG_TO_LIT_ENDIAN(steeringFrame.dataWord0);
 
     data_ptr = &steeringFrame.dataWord0;
     //PRINTF("\n%d", steeringFrame.dataByte0);

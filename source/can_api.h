@@ -29,8 +29,8 @@
 
 
 void CANAPIInit(uint32_t b);
-void CANAPIMsgReceiveThrottle(uint32_t * data_ptr);
-void CANAPIMsgReceiveBrake(uint32_t * data_ptr);
+void CANAPIMsgReceiveThrottle(sensorThrottle_t * data_ptr);
+void CANAPIMsgReceiveBrake(sensorBrake_t * data_ptr);
 void CANAPIMsgReceiveSteering(uint32_t * data_ptr);
 
 

@@ -8,20 +8,21 @@
 #ifndef SENSORS_H_
 #define SENSORS_H_
 
+typedef struct  {
+    uint32_t sensorADCThrottle;
+    uint32_t sensorQEIThrottle;
+} sensorThrottle_t;
+
+typedef struct  {
+    uint32_t sensorADCBrake;
+    uint32_t sensorQEIBrake;
+} sensorBrake_t;
+
+
 typedef struct {
-
-    struct  {
-        uint32_t sensorADCThrottle;
-        uint32_t sensorQEIThrottle;
-    } sensorThrottle;
-
-    struct  {
-        uint32_t sensorADCBrake;
-        uint32_t sensorQEIBrake;
-    } sensorBrake;
-
+    sensorThrottle_t sensorThrottle;
+    sensorBrake_t sensorBrake;
     uint32_t sensorADCSteering;
-
 } sensor_t;
 
 

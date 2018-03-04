@@ -19,7 +19,6 @@ static void CANRx_task(void *pvParameters);
 
 BaseType_t CANRxTaskInit() {
 
-    sensorsCANInit(1000000);
     return xTaskCreate(CANRx_task, "CANRx_task", configMINIMAL_STACK_SIZE + 10, NULL, CANRx_task_PRIORITY, &CANRxTaskHandle);
 
 }
@@ -49,14 +48,15 @@ static void CANRx_task(void *pvParameters)
         if(rxCompleteThrottle)
         {
             sensorsCANGetThrottle(&sensors);
+            PRINTF("\n%d", sensors.sensorThrottle.sensorADCThrottle);
         }
         else if(rxCompleteBrake)
         {
-            sensorsCANGetBrake(&sensors);
+           sensorsCANGetBrake(&sensors);
         }
         else if(rxCompleteSteering)
         {
-            sensorsCANGetSteering(&sensors);
+           sensorsCANGetSteering(&sensors);
         }
         else if(errFlag == 1)
         {
@@ -66,7 +66,7 @@ static void CANRx_task(void *pvParameters)
 
         //PRINTF("\r\nId: %d, -- length: %d, -- Msg: %d", CONVERT_ID(receivedMsg.id), receivedMsg.length, ui32Data);
 
-        PRINTF("\nthrottle: %d, brake: %d, steering: %d", sensors.sensorThrottle.sensorADCThrottle, sensors.sensorBrake.sensorADCBrake, sensors.sensorADCSteering);
+        //PRINTF("\nthrottle: %d, brake: %d, steering: %d", sensors.sensorThrottle.sensorADCThrottle, sensors.sensorBrake.sensorADCBrake, sensors.sensorADCSteering);
 
     }
 }
