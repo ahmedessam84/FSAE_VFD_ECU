@@ -19,8 +19,8 @@ void CANAPIInit (uint32_t b) {
 
     // This is the place to add more ids for the CAN module to listen to
     CANDriverMsgRxFilter(CAN_THROTTLE_ID, RX_MB_THROTTLE);
-    //CANDriverMsgRxFilter(CAN_THROTTLE_ID, RX_MB_THROTTLE);
-    //CANDriverMsgRxFilter(CAN_THROTTLE_ID, RX_MB_THROTTLE);
+    CANDriverMsgRxFilter(CAN_BRAKE_ID, RX_MB_BRAKE);
+    CANDriverMsgRxFilter(CAN_STEERING_ID, RX_MB_STEERING);
 
     CANDriverInterruptEnable(RX_MB_MASK);
 
@@ -48,7 +48,7 @@ void CANAPIMsgReceiveThrottle(sensorThrottle_t * data_ptr){
 void CANAPIMsgReceiveBrake(sensorBrake_t * data_ptr){
 
     flexcan_frame_t brakeFrame;
-    brakeFrame = CANDriverMsgReceive(MB[1]);
+    brakeFrame = CANDriverMsgReceive(RX_MB_BRAKE);
 
     rxCompleteBrake = false;
 
@@ -68,13 +68,13 @@ void CANAPIMsgReceiveBrake(sensorBrake_t * data_ptr){
 void CANAPIMsgReceiveSteering(uint32_t * data_ptr){
 
     flexcan_frame_t steeringFrame;
-    steeringFrame = CANDriverMsgReceive(MB[2]);
+    steeringFrame = CANDriverMsgReceive(RX_MB_STEERING);
 
     rxCompleteSteering = false;
 
     steeringFrame.dataWord0 = BIG_TO_LIT_ENDIAN(steeringFrame.dataWord0);
 
-    data_ptr = &steeringFrame.dataWord0;
+    *data_ptr = steeringFrame.dataWord0;
     //PRINTF("\n%d", steeringFrame.dataByte0);
 
 }

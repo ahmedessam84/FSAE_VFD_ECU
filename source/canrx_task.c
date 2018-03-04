@@ -48,15 +48,17 @@ static void CANRx_task(void *pvParameters)
         if(rxCompleteThrottle)
         {
             sensorsCANGetThrottle(&sensors);
-            PRINTF("\n%d", sensors.sensorThrottle.sensorADCThrottle);
+            PRINTF("\nthrottle: %d", sensors.sensorThrottle.sensorADCThrottle);
         }
         else if(rxCompleteBrake)
         {
            sensorsCANGetBrake(&sensors);
+           PRINTF("     brake: %d", sensors.sensorBrake.sensorADCBrake);
         }
         else if(rxCompleteSteering)
         {
            sensorsCANGetSteering(&sensors);
+           PRINTF("     steering: %d\n", sensors.sensorADCSteering);
         }
         else if(errFlag == 1)
         {
