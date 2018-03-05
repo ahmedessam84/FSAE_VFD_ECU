@@ -16,7 +16,7 @@ int main(void) {
     /* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    sensorsCANInit(1000000);
+    sensorsCANInit(500000);
 
     PRINTF("Task CAN RX Text\n");
 

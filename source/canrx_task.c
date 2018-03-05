@@ -5,7 +5,6 @@
  * Definitions
  ******************************************************************************/
 TaskHandle_t CANRxTaskHandle;
-extern volatile bool rxComplete;
 extern volatile bool errFlag;
 
 /* Task priorities. */
@@ -45,21 +44,16 @@ static void CANRx_task(void *pvParameters)
         ulTaskNotifyTake( pdTRUE, xBlockTime );
         // Wait for receiving the response from sensor
 
-        if(rxCompleteThrottle)
-        {
+        if(rxComplete){
             sensorsCANGetThrottle(&sensors);
+            sensorsCANGetBrake(&sensors);
+            sensorsCANGetSteering(&sensors);
             PRINTF("\nthrottle: %d", sensors.sensorThrottle.sensorADCThrottle);
+            PRINTF("     brake: %d", sensors.sensorBrake.sensorADCBrake);
+            PRINTF("     steering: %d\n", sensors.sensorADCSteering);
+            rxComplete = false;
         }
-        else if(rxCompleteBrake)
-        {
-           sensorsCANGetBrake(&sensors);
-           PRINTF("     brake: %d", sensors.sensorBrake.sensorADCBrake);
-        }
-        else if(rxCompleteSteering)
-        {
-           sensorsCANGetSteering(&sensors);
-           PRINTF("     steering: %d\n", sensors.sensorADCSteering);
-        }
+
         else if(errFlag == 1)
         {
             PRINTF(" error\n");

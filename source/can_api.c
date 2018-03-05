@@ -7,10 +7,6 @@
 
 #include "appConfig.h"
 
-// configuration
-const uint32_t MB[] = {RX_MB_THROTTLE,RX_MB_BRAKE,RX_MB_STEERING};
-const uint32_t CAN_ID[] = {CAN_THROTTLE_ID, CAN_BRAKE_ID, CAN_STEERING_ID};
-
 
 // initialize the driver to recieve three messages from teh bus with the ids above from the Message Buffer numbers above
 void CANAPIInit (uint32_t b) {
@@ -22,6 +18,11 @@ void CANAPIInit (uint32_t b) {
     CANDriverMsgRxFilter(CAN_BRAKE_ID, RX_MB_BRAKE);
     CANDriverMsgRxFilter(CAN_STEERING_ID, RX_MB_STEERING);
 
+    // mask changed for testing to interrupt for only one message
+    // individual message interrupt commented out to reduce interrupt overhead and frequency
+    // Only interrupt when throttle Msg is received and rely on the other messages being sent in a burst
+    // right after.
+    // if you want to interrupt for all change the argument to RX_MB_MASK without the left shift operator
     CANDriverInterruptEnable(RX_MB_MASK);
 
 }

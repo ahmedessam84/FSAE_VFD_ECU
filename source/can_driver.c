@@ -7,6 +7,7 @@
 volatile bool rxCompleteThrottle = false;
 volatile bool rxCompleteBrake = false;
 volatile bool rxCompleteSteering = false;
+volatile bool rxComplete = false;
 
 volatile bool errFlag = false;
 
@@ -46,7 +47,7 @@ void FLEXCAN_IRQHandler(void)
     {
         FLEXCAN_ClearMbStatusFlags(CAN0, 1 << RX_MB_THROTTLE);
         rxCompleteThrottle = true;
-
+        rxComplete = true;
         vTaskNotifyGiveFromISR( CANRxTaskHandle, &xHigherPriorityTaskWoken );
 
         /* If xHigherPriorityTaskWoken is now set to pdTRUE then a context switch
@@ -57,19 +58,15 @@ void FLEXCAN_IRQHandler(void)
         portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 
     }
-
+    // individual message interrupt commented out to reduce interrupt overhead and frequency
+    // Only interrupt when throttle Msg is received and rely on the other messages being sent in a burst
+    // right after.
+/*
     else if (FLEXCAN_GetMbStatusFlags(CAN0, 1 << RX_MB_BRAKE))
     {
         FLEXCAN_ClearMbStatusFlags(CAN0, 1 << RX_MB_BRAKE);
         rxCompleteBrake = true;
-
         vTaskNotifyGiveFromISR( CANRxTaskHandle, &xHigherPriorityTaskWoken );
-
-        /* If xHigherPriorityTaskWoken is now set to pdTRUE then a context switch
-        should be performed to ensure the interrupt returns directly to the highest
-        priority task.  The macro used for this purpose is dependent on the port in
-        use and may be called portEND_SWITCHING_ISR(). */
-
         portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 
     }
@@ -78,18 +75,11 @@ void FLEXCAN_IRQHandler(void)
     {
         FLEXCAN_ClearMbStatusFlags(CAN0, 1 << RX_MB_STEERING);
         rxCompleteSteering = true;
-
         vTaskNotifyGiveFromISR( CANRxTaskHandle, &xHigherPriorityTaskWoken );
-
-        /* If xHigherPriorityTaskWoken is now set to pdTRUE then a context switch
-        should be performed to ensure the interrupt returns directly to the highest
-        priority task.  The macro used for this purpose is dependent on the port in
-        use and may be called portEND_SWITCHING_ISR(). */
-
         portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 
     }
-
+*/
     // error handling should be done here
 
     /* Add for ARM errata 838869, affects Cortex-M4, Cortex-M4F Store immediate overlapping

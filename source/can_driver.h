@@ -23,7 +23,7 @@
 #define RX_MB_THROTTLE          (6)
 #define RX_MB_BRAKE             (7)
 #define RX_MB_STEERING          (8)
-#define RX_MB_MASK              (1<<RX_MB_THROTTLE) | (1<<RX_MB_BRAKE) | (1<<RX_MB_STEERING)
+#define RX_MB_MASK              (1<<RX_MB_THROTTLE) /*| (1<<RX_MB_BRAKE) | (1<<RX_MB_STEERING)*/
 
 #define TX_MESSAGE_BUFFER_NUM   (9)
 
@@ -32,13 +32,21 @@
 #define BIG_TO_LIT_ENDIAN(x)       (((x>>24) & 0x000000ff) | ((x>>8) & 0x0000ff00) | ((x<<8) & 0x00ff0000) | ((x<<24) & 0xff000000))
 
 
+
 extern volatile bool rxCompleteThrottle;
 extern volatile bool rxCompleteBrake;
 extern volatile bool rxCompleteSteering;
+extern volatile bool rxComplete;
+
+
+
 
 void CANDriverInit(uint32_t baudrate);
 void CANDriverInterruptEnable(uint32_t mask);
 flexcan_frame_t CANDriverMsgReceive(uint32_t messageBufferNo);
 void CANDriverMsgRxFilter(uint32_t id, uint32_t messageBufferNo);
+
+
+
 
 #endif /* CAN_DRIVER_H_ */
