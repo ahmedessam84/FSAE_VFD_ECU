@@ -43,7 +43,7 @@ extern volatile bool rxComplete;
 
 void CANDriverInit(uint32_t baudrate);
 void CANDriverInterruptEnable(uint32_t mask);
-flexcan_frame_t CANDriverMsgReceive(uint32_t messageBufferNo);
+void CANDriverMsgReceive(uint32_t messageBufferNo, flexcan_frame_t* msg_ptr);
 void CANDriverMsgRxFilter(uint32_t id, uint32_t messageBufferNo);
 
 

@@ -29,7 +29,7 @@ BaseType_t CANRxTaskInit() {
 static void CANRx_task(void *pvParameters)
 {
 
-    sensor_t sensors;
+    sensor_t sensors= {0} ;
 
     const TickType_t xBlockTime = 4000; // block time set to 4 sec
 

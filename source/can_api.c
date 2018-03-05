@@ -18,11 +18,7 @@ void CANAPIInit (uint32_t b) {
     CANDriverMsgRxFilter(CAN_BRAKE_ID, RX_MB_BRAKE);
     CANDriverMsgRxFilter(CAN_STEERING_ID, RX_MB_STEERING);
 
-    // mask changed for testing to interrupt for only one message
-    // individual message interrupt commented out to reduce interrupt overhead and frequency
-    // Only interrupt when throttle Msg is received and rely on the other messages being sent in a burst
-    // right after.
-    // if you want to interrupt for all change the argument to RX_MB_MASK without the left shift operator
+    // adjust the mask in can_driver.h to the interrupt you want
     CANDriverInterruptEnable(RX_MB_MASK);
 
 }
@@ -30,8 +26,8 @@ void CANAPIInit (uint32_t b) {
 
 void CANAPIMsgReceiveThrottle(sensorThrottle_t * data_ptr){
 
-    flexcan_frame_t throttleFrame;
-    throttleFrame = CANDriverMsgReceive(RX_MB_THROTTLE);
+    flexcan_frame_t throttleFrame = {0};
+    CANDriverMsgReceive(RX_MB_THROTTLE, &throttleFrame);
 
     rxCompleteThrottle = false;
 
@@ -48,8 +44,8 @@ void CANAPIMsgReceiveThrottle(sensorThrottle_t * data_ptr){
 
 void CANAPIMsgReceiveBrake(sensorBrake_t * data_ptr){
 
-    flexcan_frame_t brakeFrame;
-    brakeFrame = CANDriverMsgReceive(RX_MB_BRAKE);
+    flexcan_frame_t brakeFrame = {0};
+    CANDriverMsgReceive(RX_MB_BRAKE, &brakeFrame);
 
     rxCompleteBrake = false;
 
@@ -68,8 +64,8 @@ void CANAPIMsgReceiveBrake(sensorBrake_t * data_ptr){
 
 void CANAPIMsgReceiveSteering(uint32_t * data_ptr){
 
-    flexcan_frame_t steeringFrame;
-    steeringFrame = CANDriverMsgReceive(RX_MB_STEERING);
+    flexcan_frame_t steeringFrame = {0};
+    CANDriverMsgReceive(RX_MB_STEERING, &steeringFrame);
 
     rxCompleteSteering = false;
 

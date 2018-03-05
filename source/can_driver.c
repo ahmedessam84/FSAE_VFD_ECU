@@ -127,9 +127,9 @@ void CANDriverInterruptEnable(uint32_t mask){
 
 
 // Receive Message needs to be called after rx interrupt happens
-flexcan_frame_t CANDriverMsgReceive(uint32_t messageBufferNo) {
+void CANDriverMsgReceive(uint32_t messageBufferNo, flexcan_frame_t* msg_ptr) {
 
-    FLEXCAN_ReadRxMb(CAN0, messageBufferNo, &RxMessage);
+    FLEXCAN_ReadRxMb(CAN0, messageBufferNo, msg_ptr);
     //rxComplete = false;
-    return RxMessage;
+    //return RxMessage;
 }
