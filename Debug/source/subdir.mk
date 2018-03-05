@@ -7,6 +7,8 @@ C_SRCS += \
 ../source/can_api.c \
 ../source/can_driver.c \
 ../source/canrx_task.c \
+../source/dac_driver.c \
+../source/dac_task.c \
 ../source/main.c \
 ../source/semihost_hardfault.c \
 ../source/sensors.c 
@@ -15,6 +17,8 @@ OBJS += \
 ./source/can_api.o \
 ./source/can_driver.o \
 ./source/canrx_task.o \
+./source/dac_driver.o \
+./source/dac_task.o \
 ./source/main.o \
 ./source/semihost_hardfault.o \
 ./source/sensors.o 
@@ -23,6 +27,8 @@ C_DEPS += \
 ./source/can_api.d \
 ./source/can_driver.d \
 ./source/canrx_task.d \
+./source/dac_driver.d \
+./source/dac_task.d \
 ./source/main.d \
 ./source/semihost_hardfault.d \
 ./source/sensors.d 

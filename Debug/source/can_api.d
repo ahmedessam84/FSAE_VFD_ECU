@@ -30,10 +30,11 @@ source/can_api.o source/can_api.d: ../source/can_api.c \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\board/pin_mux.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\board/clock_config.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\CMSIS/MK64F12.h \
- D:\workspace_nxp\FSAE_VFD_ECU_K64\utilities/fsl_debug_console.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_flexcan.h \
- ../source/can_driver.h ../source/sensors.h ../source/can_api.h \
- ../source/canrx_task.h
+ D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_dac.h \
+ D:\workspace_nxp\FSAE_VFD_ECU_K64\utilities/fsl_debug_console.h \
+ ../source/can_driver.h ../source/dac_driver.h ../source/sensors.h \
+ ../source/can_api.h ../source/canrx_task.h ../source/dac_task.h
 
 ../source/appConfig.h:
 
@@ -97,14 +98,20 @@ D:\workspace_nxp\FSAE_VFD_ECU_K64\board/clock_config.h:
 
 D:\workspace_nxp\FSAE_VFD_ECU_K64\CMSIS/MK64F12.h:
 
-D:\workspace_nxp\FSAE_VFD_ECU_K64\utilities/fsl_debug_console.h:
-
 D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_flexcan.h:
 
+D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_dac.h:
+
+D:\workspace_nxp\FSAE_VFD_ECU_K64\utilities/fsl_debug_console.h:
+
 ../source/can_driver.h:
+
+../source/dac_driver.h:
 
 ../source/sensors.h:
 
 ../source/can_api.h:
 
 ../source/canrx_task.h:
+
+../source/dac_task.h:

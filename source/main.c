@@ -2,8 +2,6 @@
 #include "appConfig.h"
 
 
-
-
 /*
  * @brief   Application entry point.
  */
@@ -16,7 +14,9 @@ int main(void) {
     /* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    DACDriverInit();
     sensorsCANInit(1000000);
+
 
     PRINTF("Task CAN RX Text\n");
 
@@ -25,6 +25,13 @@ int main(void) {
         PRINTF("Task creation failed!.\r\n");
         while(1){};
     }
+
+    if (DACTaskInit() != pdPASS)
+    {
+        PRINTF("Task creation failed!.\r\n");
+        while(1){};
+    }
+
 
     vTaskStartScheduler();
 

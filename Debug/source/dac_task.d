@@ -1,4 +1,4 @@
-source/sensors.o source/sensors.d: ../source/sensors.c \
+source/dac_task.o source/dac_task.d: ../source/dac_task.c \
  ../source/appConfig.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\freertos\include/FreeRTOS.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\source/FreeRTOSConfig.h \

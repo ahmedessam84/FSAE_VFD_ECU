@@ -29,7 +29,7 @@ BaseType_t CANRxTaskInit() {
 static void CANRx_task(void *pvParameters)
 {
 
-    sensor_t sensors= {0} ;
+    static sensor_t sensors= {0} ;
 
     const TickType_t xBlockTime = 4000; // block time set to 4 sec
 
@@ -45,24 +45,27 @@ static void CANRx_task(void *pvParameters)
         // Wait for receiving the response from sensor
 
         if(rxComplete){
+
             sensorsCANGetThrottle(&sensors);
             sensorsCANGetBrake(&sensors);
             sensorsCANGetSteering(&sensors);
+
             PRINTF("\nthrottle: %d", sensors.sensorThrottle.sensorADCThrottle);
             PRINTF("     brake: %d", sensors.sensorBrake.sensorADCBrake);
             PRINTF("     steering: %d\n", sensors.sensorADCSteering);
+
             rxComplete = false;
+
+            xQueueSend( xThrottleQueue, ( void * ) &(sensors.sensorThrottle.sensorADCThrottle), ( TickType_t ) 0 );
+
         }
 
         else if(errFlag == 1)
         {
             PRINTF(" error\n");
             errFlag = 0;
+            sensors.sensorThrottle.sensorADCThrottle = 0;
         }
-
-        //PRINTF("\r\nId: %d, -- length: %d, -- Msg: %d", CONVERT_ID(receivedMsg.id), receivedMsg.length, ui32Data);
-
-        //PRINTF("\nthrottle: %d, brake: %d, steering: %d", sensors.sensorThrottle.sensorADCThrottle, sensors.sensorBrake.sensorADCBrake, sensors.sensorADCSteering);
 
     }
 }

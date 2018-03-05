@@ -61,6 +61,15 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITPINS_DEBUG_UART_TX_NAME "DEBUG_UART_TX"    /*!<@brief Identifier name */
                                                              /* @} */
 
+/*! @name DAC0_OUT (number 27), J4[11]
+  @{ */
+#define BOARD_INITPINS_DAC0_OUT_PERIPHERAL DAC0   /*!<@brief Device name: DAC0 */
+#define BOARD_INITPINS_DAC0_OUT_SIGNAL OUT        /*!<@brief DAC0 signal: OUT */
+#define BOARD_INITPINS_DAC0_OUT_PIN_NAME DAC0_OUT /*!<@brief Pin name */
+#define BOARD_INITPINS_DAC0_OUT_LABEL "J4[11]"    /*!<@brief Label */
+#define BOARD_INITPINS_DAC0_OUT_NAME "DAC0_OUT"   /*!<@brief Identifier name */
+                                                  /* @} */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
