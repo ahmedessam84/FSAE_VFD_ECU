@@ -8,6 +8,7 @@
 #ifndef CAN_API_H_
 #define CAN_API_H_
 
+
 /***********************************************************************/
 #define CAN_OBJ_THROTTLE    2
 #define CAN_OBJ_BRAKE       3

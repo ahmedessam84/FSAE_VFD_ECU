@@ -18,6 +18,8 @@ TaskHandle_t DACTaskHandle;
 
 QueueHandle_t xThrottleQueue;
 
+runtimeStat_t rtDACTask;
+
 /* Task priorities. */
 #define DAC_task_PRIORITY (configMAX_PRIORITIES - 1)
 
@@ -39,6 +41,7 @@ BaseType_t DACTaskInit() {
 
 /*!
  * @brief Task responsible for analog output to the VFD.
+ * DACTask Execution Time 7 us
  */
 static void DAC_task(void *pvParameters)
 {
@@ -47,9 +50,14 @@ static void DAC_task(void *pvParameters)
 
     while(1)
     {
-        // Receive a message on the created queue.
+        // Receive a message from the created queue.
+        // the message is being sent from the CANRx_Task --> DAC_Task
         if( xQueueReceive( xThrottleQueue, &( throttleReading ), ( TickType_t ) SAFETY_TIMEOUT ) )
         {
+
+#ifdef RT_TEST
+            rtDACTask.startTime = GET_RUN_TIME_COUNTER_VALUE();
+#endif
             DACDriverOutputSet(throttleReading);
         }
         else
@@ -57,6 +65,14 @@ static void DAC_task(void *pvParameters)
             // Error handling if for any reason a reading is not received turn off the output
             DACDriverOutputSet(0);
         }
+
+        // signal watchdog that task is alive
+        Alive(0x2);
+
+#ifdef RT_TEST
+        rtDACTask.endTime = GET_RUN_TIME_COUNTER_VALUE();
+        rtDACTask.execTime = rtDACTask.endTime - rtDACTask.startTime;
+#endif
 
     }
 

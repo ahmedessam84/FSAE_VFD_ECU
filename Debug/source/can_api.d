@@ -32,9 +32,16 @@ source/can_api.o source/can_api.d: ../source/can_api.c \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\CMSIS/MK64F12.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_flexcan.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_dac.h \
+ D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_wdog.h \
+ D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_rcm.h \
  D:\workspace_nxp\FSAE_VFD_ECU_K64\utilities/fsl_debug_console.h \
+ D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_lptmr.h \
+ D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_pit.h \
  ../source/can_driver.h ../source/dac_driver.h ../source/sensors.h \
- ../source/can_api.h ../source/canrx_task.h ../source/dac_task.h
+ ../source/can_api.h ../source/watchdog_api.h \
+ ../source/runtime_timer_api.h ../source/canrx_task.h \
+ ../source/dac_task.h ../source/watchdog_task.h \
+ ../source/runtimestats_task.h
 
 ../source/appConfig.h:
 
@@ -102,7 +109,15 @@ D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_flexcan.h:
 
 D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_dac.h:
 
+D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_wdog.h:
+
+D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_rcm.h:
+
 D:\workspace_nxp\FSAE_VFD_ECU_K64\utilities/fsl_debug_console.h:
+
+D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_lptmr.h:
+
+D:\workspace_nxp\FSAE_VFD_ECU_K64\drivers/fsl_pit.h:
 
 ../source/can_driver.h:
 
@@ -112,6 +127,14 @@ D:\workspace_nxp\FSAE_VFD_ECU_K64\utilities/fsl_debug_console.h:
 
 ../source/can_api.h:
 
+../source/watchdog_api.h:
+
+../source/runtime_timer_api.h:
+
 ../source/canrx_task.h:
 
 ../source/dac_task.h:
+
+../source/watchdog_task.h:
+
+../source/runtimestats_task.h:

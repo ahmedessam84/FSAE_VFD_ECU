@@ -5,7 +5,7 @@
  * Generated linker script file for MK64FN1M0xxx12
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v10.1.1 [Build 606] [2018-01-02]  on Mar 5, 2018 1:29:31 PM
+ * MCUXpresso IDE v10.1.1 [Build 606] [2018-01-02]  on Mar 24, 2018 10:40:48 PM
  */
 
 INCLUDE "FSAE_VFD_ECU_K64_Debug_library.ld"

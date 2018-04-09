@@ -36,7 +36,7 @@ all: FSAE_VFD_ECU_K64.axf
 FSAE_VFD_ECU_K64.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -Xlinker -print-memory-usage -Xlinker --gc-sections -Xlinker -Map="FSAE_VFD_ECU_K64.map" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -T "FSAE_VFD_ECU_K64_Debug.ld" -o "FSAE_VFD_ECU_K64.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -Xlinker -print-memory-usage -Xlinker --gc-sections -Xlinker -Map="FSAE_VFD_ECU_K64.map" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -T FSAE_VFD_ECU_K64_Debug.ld -o "FSAE_VFD_ECU_K64.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
